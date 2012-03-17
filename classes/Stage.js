@@ -32,13 +32,16 @@ Stage.prototype.draw = function () {
 	var context = this.canvas.getContext('2d');
 	context.fillStyle = '#000';
 	context.fillRect(0, 0, this.width, this.height);
-	for (var i = 0; i < this.subviews.length; i++) {
-		var subview = this.subviews[i];
 
-		context.save();
-		context.translate(subview.x, subview.y);
-		subview.draw(context, delay);
-		context.restore();
+	var svs = this.subviews.slice(0);
+	for (var i = 0; i < svs.length; i++) {
+		var subview = svs[i];
+		if (subview.stage == this) {
+			context.save();
+			context.translate(subview.x, subview.y);
+			subview.draw(context, delay);
+			context.restore();
+		}
 	}
 }
 
