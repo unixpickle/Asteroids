@@ -25,8 +25,8 @@ function handleKeyUp (event) {
 
 function addRock () {
 	var rock = new Rock(80);
-	rock.vel_x = Math.random() * 5 + 5;
-	rock.vel_y = Math.random() * 5 + 5;
+	rock.x = Math.random() * stage.width;
+	rock.y = -rock.radius();
 	stage.add(rock);
 }
 

@@ -68,7 +68,7 @@ Stage.prototype.setAnimating = function (flag) {
 Stage.prototype.animateFrame = function () {
 	if (this.animating == true) {
 		this.draw();
-		setTimeout(this.animateFrame.bind(this), 42);
+		setTimeout(this.animateFrame.bind(this), 16);
 	}
 }
 

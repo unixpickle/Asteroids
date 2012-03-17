@@ -14,7 +14,7 @@ function Ship (size) {
 }
 
 Ship.prototype = new View;
-Ship.prototype.type = function () { return "Ship"; }
+Ship.prototype.type = function () { return 'Ship'; }
 
 Ship.prototype.nosePosition = function () {
 	obj = new Object();
@@ -66,13 +66,19 @@ Ship.prototype.draw = function (context, time) {
 }
 
 Ship.prototype.applyFric = function (time) {
+	var fric_a = this.fric_a;
+	var fric = this.fric;
+	if (this.stage.isKeyDown(40)) {
+		fric_a *= 4;
+		fric *= 4;
+	}
 	if (this.vel_a > 0) {
-		this.vel_a -= this.fric_a * (time / 1000);
+		this.vel_a -= fric_a * (time / 1000);
 		if (this.vel_a < 0) {
 			this.vel_a = 0;
 		}
 	} else if (this.vel_a < 0) {
-		this.vel_a += this.fric_a * (time / 1000);
+		this.vel_a += fric_a * (time / 1000);
 		if (this.vel_a > 0) {
 			this.vel_a = 0;
 		}
@@ -80,12 +86,12 @@ Ship.prototype.applyFric = function (time) {
 	var totalVel = Math.sqrt(Math.pow(this.vel_x, 2) + Math.pow(this.vel_y, 2));
 	var angle = Math.atan2(this.vel_y, this.vel_x);
 	if (totalVel > 0) {
-		totalVel -= this.fric * (time / 1000);
+		totalVel -= fric * (time / 1000);
 		if (totalVel < 0) {
 			totalVel = 0;
 		}
 	} else if (totalVel < 0) {
-		totalVel += this.fric * (time / 1000);
+		totalVel += fric * (time / 1000);
 		if (totalVel > 0) {
 			totalVel = 0;
 		}
