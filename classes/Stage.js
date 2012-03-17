@@ -20,6 +20,17 @@ Stage.prototype.remove = function (view) {
 	this.subviews.splice(index, 1);
 }
 
+Stage.prototype.viewsOfType = function (type) {
+	var views = [];
+	for (var i = 0; i < this.subviews.length; i++) {
+		var sv = this.subviews[i];
+		if (sv.type() == type) {
+			views.push(sv);
+		}
+	}
+	return views;
+}
+
 Stage.prototype.draw = function () {
 	var newDate = new Date();
 	var newDraw = newDate.getTime();

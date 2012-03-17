@@ -10,9 +10,11 @@ function Ship (size) {
 	this.vel_y = 0;
 	this.fric = 50;
 	this.fric_a = 50;
+	this.bull = 200;
 }
 
 Ship.prototype = new View;
+Ship.prototype.type = function () { return "Ship"; }
 
 Ship.prototype.nosePosition = function () {
 	obj = new Object();
@@ -96,20 +98,21 @@ Ship.prototype.wrapSides = function () {
 	if (0 - this.size > this.x) {
 		this.x = this.stage.width + this.size - ((0 - this.size) - this.x);
 	} else if (this.x > this.stage.width + this.size) {
-		this.x = 0 - this.size + (this.x - this.stage.width);
+		this.x = 0 - this.size + (this.x - (this.stage.width + this.size));
 	}
 	if (0 - this.size > this.y) {
 		this.y = this.stage.height + this.size - ((0 - this.size) - this.y);
 	} else if (this.y > this.stage.height + this.size) {
-		this.y = 0 - this.size + (this.y - this.stage.height);
+		this.y = 0 - this.size + (this.y - (this.stage.height + this.size));
 	}
 }
 
 Ship.prototype.shootBullet = function () {
 	var start = this.nosePosition();
-	var xmov = Math.cos(ship.angle * Math.PI / 180) * 70 + this.vel_x;
-	var ymov = Math.sin(ship.angle * Math.PI / 180) * 70 + this.vel_y;
+	var xmov = Math.cos(ship.angle * Math.PI / 180) * this.bull + this.vel_x;
+	var ymov = Math.sin(ship.angle * Math.PI / 180) * this.bull + this.vel_y;
 	var bullet = new Bullet(xmov, ymov);
 	this.stage.add(bullet);
 	bullet.setPosition(start.x, start.y);
 }
+

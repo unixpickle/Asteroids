@@ -4,6 +4,8 @@ function View () {
 	this.y = 0;
 }
 
+View.prototype.type = function () { return "View"; }
+
 View.prototype.setPosition = function (x, y) {
 	this.x = x;
 	this.y = y;
@@ -16,5 +18,6 @@ View.prototype.draw = function (context, time) {
 }
 
 View.prototype.remove = function () {
+	if (this.stage == null) return;
 	this.stage.remove(this);
 }

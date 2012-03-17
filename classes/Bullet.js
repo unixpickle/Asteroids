@@ -7,6 +7,7 @@ function Bullet (xvel, yvel) {
 }
 
 Bullet.prototype = new View;
+Bullet.prototype.type = function () { return "Bullet"; }
 Bullet.prototype.draw = function (context, time) {
 	this.x += this.vel_x * (time / 1000);
 	this.y += this.vel_y * (time / 1000);
@@ -21,5 +22,7 @@ Bullet.prototype.draw = function (context, time) {
 		this.remove();
 	} else if (this.y > this.stage.height + 6 || this.y < -6) {
 		this.remove();
+	} else {
+		rockTest(this);
 	}
 }

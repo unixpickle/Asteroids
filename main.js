@@ -12,6 +12,7 @@ function setupScene () {
 
 	window.addEventListener('keydown', handleKeyDown, true);
 	window.addEventListener('keyup', handleKeyUp, true);
+	addRock();
 }
 
 function handleKeyDown (event) {
@@ -20,4 +21,23 @@ function handleKeyDown (event) {
 
 function handleKeyUp (event) {
 	stage.keyUp(event);
+}
+
+function addRock () {
+	var rock = new Rock(80);
+	rock.vel_x = Math.random() * 5 + 5;
+	rock.vel_y = Math.random() * 5 + 5;
+	stage.add(rock);
+}
+
+function rockTest (bullet) {
+	var rocks = stage.viewsOfType('Rock');
+	for (var i = 0; i < rocks.length; i++) {
+		var rock = rocks[i];
+		if (rock.hitTest(bullet.x, bullet.y)) {
+			rock.hit();
+			bullet.remove();
+			return;
+		}
+	}
 }
