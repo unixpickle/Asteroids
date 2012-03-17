@@ -17,9 +17,9 @@ Bullet.prototype.draw = function (context, time) {
 	context.closePath();
 	context.fill();
 
-	if (this.x > this.stage.width + 3 || this.x < -3) {
+	if (this.x > this.stage.width + 6 || this.x < -6) {
 		this.remove();
-	} else if (this.y > this.stage.height + 3 || this.y < -3) {
+	} else if (this.y > this.stage.height + 6 || this.y < -6) {
 		this.remove();
 	}
 }

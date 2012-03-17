@@ -8,7 +8,7 @@ function Ship (size) {
 	this.vel_a = 0;
 	this.vel_x = 0;
 	this.vel_y = 0;
-	this.fric = 10;
+	this.fric = 50;
 	this.fric_a = 50;
 }
 
@@ -49,16 +49,16 @@ Ship.prototype.draw = function (context, time) {
 	if (this.stage.isKeyDown(38)) {
 		var xcoeff = Math.cos(this.angle * Math.PI / 180);
 		var ycoeff = Math.sin(this.angle * Math.PI / 180);
-		this.vel_x += xcoeff * 50 * (time / 1000);
-		this.vel_y += ycoeff * 50 * (time / 1000);
+		this.vel_x += xcoeff * 200 * (time / 1000);
+		this.vel_y += ycoeff * 200 * (time / 1000);
 	}
 	if (this.stage.isKeyDown(32)) {
 		this.shootBullet();
 	}
 
 	this.angle += this.vel_a * (time / 1000);
-	this.x += this.vel_x;
-	this.y += this.vel_y;
+	this.x += this.vel_x * (time / 1000);
+	this.y += this.vel_y * (time / 1000);
 	this.applyFric(time);
 	this.wrapSides();
 }
@@ -107,8 +107,8 @@ Ship.prototype.wrapSides = function () {
 
 Ship.prototype.shootBullet = function () {
 	var start = this.nosePosition();
-	var xmov = Math.cos(ship.angle * Math.PI / 180) * 70;
-	var ymov = Math.sin(ship.angle * Math.PI / 180) * 70;
+	var xmov = Math.cos(ship.angle * Math.PI / 180) * 70 + this.vel_x;
+	var ymov = Math.sin(ship.angle * Math.PI / 180) * 70 + this.vel_y;
 	var bullet = new Bullet(xmov, ymov);
 	this.stage.add(bullet);
 	bullet.setPosition(start.x, start.y);
