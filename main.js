@@ -41,3 +41,22 @@ function rockTest (bullet) {
 		}
 	}
 }
+
+function deathTest () {
+	var rocks = stage.viewsOfType('Rock');
+	var triangle = ship.collisionTriangle();
+	for (var i = 0; i < rocks.length; i++) {
+		var rock = rocks[i];
+		if (rock.distanceFrom(ship.x, ship.y) < ship.size + rock.radius()) {
+			if (rock.hitTestTriangle(triangle)) {
+				newGame();
+				return;
+			}
+		}
+	}
+}
+
+function newGame () {
+	stage.setAnimating(false);
+	setupScene();
+}

@@ -11,10 +11,18 @@ function Ship (size) {
 	this.fric = 50;
 	this.fric_a = 50;
 	this.bull = 200;
+	
+	this.triangle = new Triangle(new Point(this.size, 0),
+		new Point(-this.size / 2, -this.size * (Math.sqrt(3) / 2.0)),
+		new Point(-this.size / 2, this.size * (Math.sqrt(3) / 2.0)));
 }
 
 Ship.prototype = new View;
 Ship.prototype.type = function () { return 'Ship'; }
+
+Ship.prototype.collisionTriangle = function () {
+	return this.triangle.rotate(this.angle * Math.PI / 180).translate(new Point(this.x, this.y));
+}
 
 Ship.prototype.nosePosition = function () {
 	obj = new Object();
@@ -63,6 +71,8 @@ Ship.prototype.draw = function (context, time) {
 	this.y += this.vel_y * (time / 1000);
 	this.applyFric(time);
 	this.wrapSides();
+	
+	deathTest();
 }
 
 Ship.prototype.applyFric = function (time) {
